@@ -31,6 +31,16 @@ class OUT:
     def active_low(self):
         """Set libregpio.OUT object to active_low."""
         system(f"gpioset {GPIOCHIP} {self.pin} -l")
+    
+    def toggle(self):
+        """Toggle output value of a GPIO pin
+        
+        When current value is greater than 1 change to 0, Else, change to 1."""
+        current_value = int(popen(f"gpioget {GPIOCHIP} {self.pin}").read())
+        if current_value > 0:
+            self.LOW
+        else:
+            self.HIGH
 
 
 class IN:
