@@ -40,9 +40,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">libregpio</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="libregpio.html">libregpio module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pin_mapping module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pin_mapping module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pin_mapping.GPIOCHIP"><code class="docutils literal notranslate"><span class="pre">GPIOCHIP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pin_mapping.PIN_NAME"><code class="docutils literal notranslate"><span class="pre">PIN_NAME</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="libregpio.html">libregpio module</a></li>
@@ -73,8 +78,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pin-mapping-module">
-<h1>pin_mapping module<a class="headerlink" href="#pin-mapping-module" title="Permalink to this heading"></a></h1>
+  <section id="module-pin_mapping">
+<span id="pin-mapping-module"></span><h1>pin_mapping module<a class="headerlink" href="#module-pin_mapping" title="Permalink to this heading"></a></h1>
+<dl class="py data">
+<dt class="sig sig-object py" id="pin_mapping.GPIOCHIP">
+<span class="sig-prename descclassname"><span class="pre">pin_mapping.</span></span><span class="sig-name descname"><span class="pre">GPIOCHIP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gpiochip1'</span></em><a class="headerlink" href="#pin_mapping.GPIOCHIP" title="Permalink to this definition"></a></dt>
+<dd><p>Constant that contains the name of the GPIO chip on the SBC. As default, this
+is set to the 40-pin GPIO chip of LibreComputer’s “Le Potato”.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pin_mapping.PIN_NAME">
+<span class="sig-prename descclassname"><span class="pre">pin_mapping.</span></span><span class="sig-name descname"><span class="pre">PIN_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'GPIOA9_5':</span> <span class="pre">5,</span> <span class="pre">'GPIOAO_4':</span> <span class="pre">4,</span> <span class="pre">'GPIOAO_6':</span> <span class="pre">6,</span> <span class="pre">'GPIOAO_8':</span> <span class="pre">8,</span> <span class="pre">'GPIOAO_9':</span> <span class="pre">9,</span> <span class="pre">'GPIOCLK_0':</span> <span class="pre">98,</span> <span class="pre">'GPIODV_26':</span> <span class="pre">75,</span> <span class="pre">'GPIODV_27':</span> <span class="pre">76,</span> <span class="pre">'GPIOX_0':</span> <span class="pre">79,</span> <span class="pre">'GPIOX_1':</span> <span class="pre">80,</span> <span class="pre">'GPIOX_10':</span> <span class="pre">89,</span> <span class="pre">'GPIOX_11':</span> <span class="pre">90,</span> <span class="pre">'GPIOX_12':</span> <span class="pre">91,</span> <span class="pre">'GPIOX_13':</span> <span class="pre">92,</span> <span class="pre">'GPIOX_14':</span> <span class="pre">93,</span> <span class="pre">'GPIOX_15':</span> <span class="pre">94,</span> <span class="pre">'GPIOX_16':</span> <span class="pre">95,</span> <span class="pre">'GPIOX_17':</span> <span class="pre">96,</span> <span class="pre">'GPIOX_18':</span> <span class="pre">97,</span> <span class="pre">'GPIOX_2':</span> <span class="pre">81,</span> <span class="pre">'GPIOX_3':</span> <span class="pre">82,</span> <span class="pre">'GPIOX_4':</span> <span class="pre">83,</span> <span class="pre">'GPIOX_5':</span> <span class="pre">84,</span> <span class="pre">'GPIOX_6':</span> <span class="pre">85,</span> <span class="pre">'GPIOX_7':</span> <span class="pre">86,</span> <span class="pre">'GPIOX_8':</span> <span class="pre">87,</span> <span class="pre">'GPIOX_9':</span> <span class="pre">88}</span></em><a class="headerlink" href="#pin_mapping.PIN_NAME" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary with GPIO pin names as keys and Linux pin number as values.</p>
+</dd></dl>
+
 </section>
 
 
