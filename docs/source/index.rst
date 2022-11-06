@@ -11,7 +11,6 @@ Welcome to libregpio's documentation!
    :caption: Contents:
 
    intro
-   modules
    libregpio
 
 
