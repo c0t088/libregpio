@@ -10,6 +10,10 @@ Welcome to libregpio's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   intro
+   modules
+   libregpio
+
 
 
 Indices and tables
