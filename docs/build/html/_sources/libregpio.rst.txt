@@ -1,7 +1,16 @@
-libregpio module
+API documentation
 ================
 
-.. automodule:: libregpio
+libregpio.OUT class
+*******************
+.. autoclass:: libregpio.OUT
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libregpio.IN class
+*******************
+.. autoclass:: libregpio.IN
    :members:
    :undoc-members:
    :show-inheritance:
