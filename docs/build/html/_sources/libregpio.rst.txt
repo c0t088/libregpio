@@ -1,14 +1,14 @@
 API documentation
-================
+=================
 
-libregpio.OUT class
+Output
 *******************
 .. autoclass:: libregpio.OUT
    :members:
    :undoc-members:
    :show-inheritance:
 
-libregpio.IN class
+Input
 *******************
 .. autoclass:: libregpio.IN
    :members:
