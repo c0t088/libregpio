@@ -3,25 +3,25 @@ from os import system, popen
 
 
 class OUT:
+    """This is a class representantion of a GPIO pin to be used as an output.
+
+    :param pin: GPIO pin name (i.e. GPIOX_4)
+    """    
     def __init__(self, pin):
         self.pin = PIN_NAME[pin]
 
     def output(self, value):
-        """Send an output to a GPIO pin.
+        """Set an output value to a libregpio.OUT object (i.e. 0 or 1).
 
-        Set an output value to a libregpio.OUT object (i.e. 0 or 1).
-
-        Parameters
-        ----------
-        value : int
-            output value (0 or 1)
-        """
+        :param value: output value to be sent to GPIO pin
+        :type value: int
+        """        
         self.value = value
         if self.value in [0, 1]:
             system(f"gpioset {GPIOCHIP} {self.pin}={self.value}")
 
     def LOW(self):
-        """Set a value of 0 to a libregpio.OUT object."""
+        """Set a value of 0 to a libregpio.OUT object"""   
         system(f"gpioset {GPIOCHIP} {self.pin}=0")
 
     def HIGH(self):
@@ -44,28 +44,25 @@ class OUT:
 
 
 class IN:
+    """This is a class representantion of a GPIO pin to be used as an input.
+
+    :param pin: GPIO pin name (i.e. GPIOX_4)
+    """  
     def __init__(self, pin):
         self.pin = PIN_NAME[pin]
 
     def input(self):
-        """Read input from a GPIO pin
+        """Read an input value from a LibreGPIO.IN object.
 
-        Read an input value from a LibreGPIO.IN object.
-
-        Returns
-        -------
-        value : int
-            Input value read from GPIO pin (i.e. 0 or 1)
-        """
+        :return: Input value read from GPIO pin (i.e. 0 or 1)
+        :rtype: int
+        """        
         value = int(popen(f"gpioget {GPIOCHIP} {self.pin}").read())
         return value
 
 
 def cleanup():
+    """Set a 0 value to every GPIO pin in `pin_mapping.py`
+    """    
     for pin in PIN_NAME.values():
-        """Set all GPIO pins to Low.
-
-        Set a 0 value to every GPIO pin in `pin_mapping.py`.
-
-        """
         system(f"gpioset {GPIOCHIP} {pin}=0")
