@@ -1,3 +1,20 @@
+""" 
+Importing the module
+====================
+
+To import the libregpio module:
+
+```python
+import libregpio as GPIO
+```
+This way allows you to refer to it as GPIO for the rest of your program.
+
+PIN Numbering
+=============
+To access the 40-pin GPIO via *gpiod* is required to use the Linux pin number. The libregpio module uses a dictionary, so the pins are initialized by the Name in its functions.
+
+Please, see Libre Computer's GPIO Headers Reference: https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0
+"""
 from pin_mapping import GPIOCHIP, PIN_NAME
 from os import system, popen
 
@@ -52,7 +69,7 @@ class IN:
         self.pin = PIN_NAME[pin]
 
     def input(self):
-        """Read an input value from a LibreGPIO.IN object.
+        """Read an input value from a libregpio.IN object.
 
         :return: Input value read from GPIO pin (i.e. 0 or 1)
         :rtype: int
@@ -60,6 +77,10 @@ class IN:
         value = int(popen(f"gpioget {GPIOCHIP} {self.pin}").read())
         return value
 
+""" 
+Global Methods
+==============
+"""
 
 def cleanup():
     """Set a 0 value to every GPIO pin. It is a good practice to call this function at the end of your program to prevent shorting pins.

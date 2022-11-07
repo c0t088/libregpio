@@ -3,12 +3,55 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to libregpio's documentation!
+libregpio
 =====================================
+
+``libregpio`` is a high-level python module that aims to provide basic GPIO input/output operations for Libre Computer "Le Potato". GPIO functions are built upon gpiod.
 
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
 
-   intro
+   installation
    libregpio
+
+GitHub
+======
+The source code is available to clone at: https://github.com/c0t088/libregpio
+
+Changelog
+=========
+.. list-table:: Title
+   :widths: 25 25 50
+   :header-rows: 1
+
+   * - Version
+     - Description
+     - Date
+   * - 0.0.1
+     - Initial Version
+     - 2022-11-06
+
+MIT Licence
+===========
+MIT License
+
+Copyright (c) 2022 Roberto Chen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
