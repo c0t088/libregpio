@@ -5,7 +5,7 @@ Importing the module
 To import the libregpio module:
 
 .. code-block::
-   :caption:
+   :caption: 
        import libregpio as GPIO
        
 This way allows you to refer to it as GPIO for the rest of your program.
