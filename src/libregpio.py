@@ -62,7 +62,7 @@ class IN:
 
 
 def cleanup():
-    """Set a 0 value to every GPIO pin in `pin_mapping.py`
+    """Set a 0 value to every GPIO pin. It is a good practice to call this function at the end of your program to prevent shorting pins.
     """    
     for pin in PIN_NAME.values():
         system(f"gpioset {GPIOCHIP} {pin}=0")

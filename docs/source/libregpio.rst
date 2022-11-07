@@ -1,12 +1,7 @@
 API documentation
 =================
 
-.. autoclass:: libregpio.OUT
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-.. autoclass:: libregpio.IN
+.. automodule:: libregpio
    :members:
    :undoc-members:
    :show-inheritance:

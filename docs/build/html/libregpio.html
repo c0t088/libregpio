@@ -42,6 +42,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#libregpio.IN"><code class="docutils literal notranslate"><span class="pre">IN</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.IN.input"><code class="docutils literal notranslate"><span class="pre">IN.input()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#libregpio.OUT"><code class="docutils literal notranslate"><span class="pre">OUT</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.OUT.HIGH"><code class="docutils literal notranslate"><span class="pre">OUT.HIGH()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.OUT.LOW"><code class="docutils literal notranslate"><span class="pre">OUT.LOW()</span></code></a></li>
@@ -50,10 +54,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.OUT.toggle"><code class="docutils literal notranslate"><span class="pre">OUT.toggle()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#libregpio.IN"><code class="docutils literal notranslate"><span class="pre">IN</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#libregpio.IN.input"><code class="docutils literal notranslate"><span class="pre">IN.input()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#libregpio.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -82,8 +83,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="api-documentation">
-<h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h1>
+  <section id="module-libregpio">
+<span id="api-documentation"></span><h1>API documentation<a class="headerlink" href="#module-libregpio" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="libregpio.IN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">IN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a class representantion of a GPIO pin to be used as an input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pin</strong> – GPIO pin name (i.e. GPIOX_4)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.IN.input">
+<span class="sig-name descname"><span class="pre">input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN.input" title="Permalink to this definition"></a></dt>
+<dd><p>Read an input value from a LibreGPIO.IN object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Input value read from GPIO pin (i.e. 0 or 1)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="libregpio.OUT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">OUT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.OUT" title="Permalink to this definition"></a></dt>
@@ -132,30 +159,10 @@
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="libregpio.IN">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">IN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This is a class representantion of a GPIO pin to be used as an input.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pin</strong> – GPIO pin name (i.e. GPIOX_4)</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="libregpio.IN.input">
-<span class="sig-name descname"><span class="pre">input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN.input" title="Permalink to this definition"></a></dt>
-<dd><p>Read an input value from a LibreGPIO.IN object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Input value read from GPIO pin (i.e. 0 or 1)</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
+<dl class="py function">
+<dt class="sig sig-object py" id="libregpio.cleanup">
+<span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.cleanup" title="Permalink to this definition"></a></dt>
+<dd><p>Set a 0 value to every GPIO pin. It is a good practice to call this function at the end of your program to prevent shorting pins.</p>
 </dd></dl>
 
 </section>
