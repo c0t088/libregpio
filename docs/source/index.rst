@@ -21,7 +21,7 @@ The source code is available to clone at: https://github.com/c0t088/libregpio
 
 Changelog
 =========
-.. list-table:: Title
+.. list-table::
    :widths: 25 25 50
    :header-rows: 1
 
