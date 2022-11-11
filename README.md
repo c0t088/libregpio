@@ -1,3 +1,3 @@
 # libregpio
 
-This is a high-level python package that aims to provide basic GPIO input/output operations for Libre Computer "Le Potato", via **gpiod**
+``libregpio`` is a python module that aims to provide basic, straight-forward GPIO input/output operations for Libre Computer "Le Potato" using `gpiod`
