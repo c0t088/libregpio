@@ -55,7 +55,7 @@ class IN:
 
         Use the bias parameter to enable pull-up or pull-down modes.
 
-        :param bias: `pull-up` `pull-down` `as-is` `disable`
+        :param bias: ``pull-up`` ``pull-down`` ``as-is`` ``disable``
         :type bias: string, optional
         :return: Input value read from GPIO pin (i.e. 0 or 1)
         :rtype: int
@@ -66,13 +66,13 @@ class IN:
     def wait_for_edge(self, edge='rising', num_events=1, active_low=False):
         """Returns an input value when a specific edge event is detected. This method is designed to stop your program execution until an event is detected.
 
-        :param edge: Type of event to wait for (`rising` `falling`), defaults to 'rising'
+        :param edge: Type of event to wait for (``rising`` ``falling``), defaults to 'rising'
         :type edge: str, optional
         :param num_events: number of events to wait for. defaults to 1
         :type num_events: int, optional
-        :param active_low: Set pin to active-low state (`True` `False`). defaults to False.
+        :param active_low: Set pin to active-low state (``True`` ``False``). defaults to False.
         :type num_events: Boolean, optional
-        :return: `1` for rising.`0`for falling
+        :return: ``1`` for rising.`0`for falling
         :rtype: int
         """
         if active_low:
