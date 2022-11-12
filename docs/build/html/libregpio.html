@@ -96,13 +96,16 @@
 </section>
 <section id="pin-reference">
 <h1>PIN Reference<a class="headerlink" href="#pin-reference" title="Permalink to this heading"></a></h1>
-<p>To access the 40-pin GPIO via <em>gpiod</em> is required to use the Linux pin number. The libregpio module uses a dictionary, so the pins are initialized by its Name when creating an class object.</p>
+<p>This module is designed to work with the 40-pin chip of Libre Computer AML-S905X-CC “LePotato”.</p>
+<img alt="_images/gpio40pin-lepotato.png" src="_images/gpio40pin-lepotato.png" />
+<p>Please, see Libre Computer’s GPIO Headers Reference for full documentation: <a class="reference external" href="https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0">https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0</a></p>
+<p>To access GPIO pins with this module, a class instance needs to be created. The pins are referred to by their GPIO name.</p>
+<p>This is an example of an <code class="docutils literal notranslate"><span class="pre">IN</span></code> (input) class instance set to use ‘GPIOX_4’ pin:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
 
  <span class="n">a_pin</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">(</span><span class="s1">&#39;GPIOX_4&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Please, see Libre Computer’s GPIO Headers Reference: <a class="reference external" href="https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0">https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0</a></p>
 </section>
 <section id="module-libregpio">
 <span id="api-documentation"></span><h1>API documentation<a class="headerlink" href="#module-libregpio" title="Permalink to this heading"></a></h1>

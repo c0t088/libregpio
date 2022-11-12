@@ -11,7 +11,16 @@ This way allows you to refer to it as GPIO for the rest of your program.
 
 PIN Reference
 =============
-To access the 40-pin GPIO via *gpiod* is required to use the Linux pin number. The libregpio module uses a dictionary, so the pins are initialized by its Name when creating an class object.
+
+This module is designed to work with the 40-pin chip of Libre Computer AML-S905X-CC "LePotato".
+
+.. image:: gpio40pin-lepotato.png
+
+Please, see Libre Computer's GPIO Headers Reference for full documentation: https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0
+
+To access GPIO pins with this module, a class instance needs to be created. The pins are referred to by their GPIO name.
+
+This is an example of an ``IN`` (input) class instance set to use 'GPIOX_4' pin:
 
 .. code-block::
 
@@ -19,7 +28,6 @@ To access the 40-pin GPIO via *gpiod* is required to use the Linux pin number. T
 
         a_pin = GPIO.IN('GPIOX_4')
        
-Please, see Libre Computer's GPIO Headers Reference: https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0
 
 API documentation
 =================

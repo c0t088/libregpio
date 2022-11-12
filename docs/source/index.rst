@@ -6,10 +6,10 @@
 libregpio
 =====================================
 
-``libregpio`` is a python module that aims to provide basic, straight-forward GPIO input/output operations for Libre Computer "Le Potato" using `gpiod`
+``libregpio`` is a python module that aims to provide basic, straight-forward GPIO input/output operations for Libre Computer "Le Potato" using ``gpiod``
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
    installation
@@ -22,8 +22,8 @@ The source code is available to clone at: https://github.com/c0t088/libregpio
 References
 ==========
 
-OPi.GPIO: https://github.com/rm-hull/OPi.GPIO 
-Libre Computer Header Reference: https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0
+- OPi.GPIO (Copyright (c) 2018 Richard Hull): https://github.com/rm-hull/OPi.GPIO 
+- Libre Computer Header Reference: https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0
 
 Changelog
 =========
