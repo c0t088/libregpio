@@ -32,7 +32,7 @@ This is an example of an ``IN`` (input) class instance set to use 'GPIOX_4' pin:
 How to use
 ==========
 
-As noted in the previous section, GPIO pins are handled as class instances based on their intende use. Here we will run through some code examples.
+As noted in the previous section, GPIO pins are handled as class instances based on their intended use. Here we will run through some code examples.
 
 .. note::
        Please, take notice that the ``cleanup()`` method is used at the end of every example. This is recommended to avoid leaving any pins on a high state after the end of your program.
@@ -43,6 +43,7 @@ IN Class examples
 Read a current GPIO value
 *************************
 In this example we create an instance of the ``libregpio.IN`` class and call the ``input`` method to read the pin value:
+
 .. code-block:: python
 
        import libregpio as GPIO
@@ -63,6 +64,7 @@ Pull up and Pull down resistors
 When using a pin as an input it may be at a floating state, sending unreliable values. To prevent this, the ``bias`` parameter can be used in the ``input`` method to set ``pull-up`` or ``pull-down`` resistors. 
 
 This is the same example as above, but setting a pull-down bias:
+
 .. code-block:: python
 
        import libregpio as GPIO
@@ -83,6 +85,7 @@ Wait for an edge event
 In some applications you may want your program to wait for a falling-edge or rising-edge event. For this, you can use the ``wait_for_edge`` method.
 
 In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. The program waits for a rising-edge event before printing the corresponding value:
+
 .. code-block:: python
 
        import libregpio as GPIO
@@ -143,7 +146,7 @@ high and low methods
 toggle method
 *************
 .. code-block:: python
-       
+
        import libregpio as GPIO
        from time import sleep
 
