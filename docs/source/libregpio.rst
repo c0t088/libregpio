@@ -44,6 +44,7 @@ Read a current GPIO value
 *************************
 In this example we create an instance of the ``libregpio.IN`` class and call the ``input`` method to read the pin value:
 
+
 .. code-block:: python
 
        import libregpio as GPIO
@@ -65,6 +66,7 @@ When using a pin as an input it may be at a floating state, sending unreliable v
 
 This is the same example as above, but setting a pull-down bias:
 
+
 .. code-block:: python
 
        import libregpio as GPIO
@@ -85,6 +87,7 @@ Wait for an edge event
 In some applications you may want your program to wait for a falling-edge or rising-edge event. For this, you can use the ``wait_for_edge`` method.
 
 In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. The program waits for a rising-edge event before printing the corresponding value:
+
 
 .. code-block:: python
 

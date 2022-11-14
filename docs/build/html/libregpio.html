@@ -146,50 +146,59 @@
 <h2>IN Class examples<a class="headerlink" href="#in-class-examples" title="Permalink to this heading"></a></h2>
 <section id="read-a-current-gpio-value">
 <h3>Read a current GPIO value<a class="headerlink" href="#read-a-current-gpio-value" title="Permalink to this heading"></a></h3>
-<p>In this example we create an instance of the <code class="docutils literal notranslate"><span class="pre">libregpio.IN</span></code> class and call the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to read the pin value:
-.. code-block:: python</p>
-<blockquote>
-<div><p>import libregpio as GPIO</p>
-<p># set pin GPIOX_12 to be used as an input
-pin = GPIO.IN(‘GPIOX_12’)</p>
-<p># read pin value
-value = pin.input()</p>
-<p># print read value
-print(value)</p>
-<p>GPIO.cleanup()</p>
-</div></blockquote>
+<p>In this example we create an instance of the <code class="docutils literal notranslate"><span class="pre">libregpio.IN</span></code> class and call the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to read the pin value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+
+<span class="c1"># set pin GPIOX_12 to be used as an input</span>
+<span class="n">pin</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">(</span><span class="s1">&#39;GPIOX_12&#39;</span><span class="p">)</span>
+
+<span class="c1"># read pin value</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
+
+<span class="c1"># print read value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
 </section>
 <section id="pull-up-and-pull-down-resistors">
 <h3>Pull up and Pull down resistors<a class="headerlink" href="#pull-up-and-pull-down-resistors" title="Permalink to this heading"></a></h3>
 <p>When using a pin as an input it may be at a floating state, sending unreliable values. To prevent this, the <code class="docutils literal notranslate"><span class="pre">bias</span></code> parameter can be used in the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to set <code class="docutils literal notranslate"><span class="pre">pull-up</span></code> or <code class="docutils literal notranslate"><span class="pre">pull-down</span></code> resistors.</p>
-<p>This is the same example as above, but setting a pull-down bias:
-.. code-block:: python</p>
-<blockquote>
-<div><p>import libregpio as GPIO</p>
-<p># set pin GPIOX_12 to be used as an input
-pin = GPIO.IN(‘GPIOX_12’)</p>
-<p># read pin value with a pull-down resistor
-value = pin.input(bias=’pull-down’)</p>
-<p># print read value
-print(value)</p>
-<p>GPIO.cleanup()</p>
-</div></blockquote>
+<p>This is the same example as above, but setting a pull-down bias:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+
+<span class="c1"># set pin GPIOX_12 to be used as an input</span>
+<span class="n">pin</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">(</span><span class="s1">&#39;GPIOX_12&#39;</span><span class="p">)</span>
+
+<span class="c1"># read pin value with a pull-down resistor</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">bias</span><span class="o">=</span><span class="s1">&#39;pull-down&#39;</span><span class="p">)</span>
+
+<span class="c1"># print read value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
 </section>
 <section id="wait-for-an-edge-event">
 <h3>Wait for an edge event<a class="headerlink" href="#wait-for-an-edge-event" title="Permalink to this heading"></a></h3>
 <p>In some applications you may want your program to wait for a falling-edge or rising-edge event. For this, you can use the <code class="docutils literal notranslate"><span class="pre">wait_for_edge</span></code> method.</p>
-<p>In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. The program waits for a rising-edge event before printing the corresponding value:
-.. code-block:: python</p>
-<blockquote>
-<div><p>import libregpio as GPIO</p>
-<p># set pin GPIOX_12 to be used as an input
-pin = GPIO.IN(‘GPIOX_12’)</p>
-<p># wait for a rising-edge event. Bias is set to pull-down
-value = pin.wait_for_edge(bias=’pull-down’, edge=’rising’)</p>
-<p># print event value
-print(value)</p>
-<p>GPIO.cleanup()</p>
-</div></blockquote>
+<p>In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. The program waits for a rising-edge event before printing the corresponding value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+
+<span class="c1"># set pin GPIOX_12 to be used as an input</span>
+<span class="n">pin</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">(</span><span class="s1">&#39;GPIOX_12&#39;</span><span class="p">)</span>
+
+<span class="c1"># wait for a rising-edge event. Bias is set to pull-down</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">wait_for_edge</span><span class="p">(</span><span class="n">bias</span><span class="o">=</span><span class="s1">&#39;pull-down&#39;</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="s1">&#39;rising&#39;</span><span class="p">)</span>
+
+<span class="c1"># print event value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">num_events</span></code> parameter if you don’t want to wait for the first event occurrence.</p>
