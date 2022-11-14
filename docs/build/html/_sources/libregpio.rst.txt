@@ -32,7 +32,7 @@ This is an example of an ``IN`` (input) class instance set to use 'GPIOX_4' pin:
 How to use
 ==========
 
-As noted in the previous section, GPIO pins are handled as class instances based on their intende use. Here we will run through some code examples.
+As noted in the previous section, GPIO pins are handled as class instances based on their intended use. Here we will run through some code examples.
 
 .. note::
        Please, take notice that the ``cleanup()`` method is used at the end of every example. This is recommended to avoid leaving any pins on a high state after the end of your program.
@@ -143,7 +143,7 @@ high and low methods
 toggle method
 *************
 .. code-block:: python
-       
+
        import libregpio as GPIO
        from time import sleep
 
