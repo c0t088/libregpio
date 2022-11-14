@@ -201,7 +201,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">num_events</span></code> parameter if you don’t want to wait for the first event occurrence.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">num_events</span></code> parameter if you want to wait for more than one event occurrence.</p>
 </div>
 </section>
 </section>
@@ -310,10 +310,10 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code> for rising.``0``for falling</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code> for rising <code class="docutils literal notranslate"><span class="pre">0</span></code> for falling</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p></p>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -339,19 +339,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.OUT.high">
 <span class="sig-name descname"><span class="pre">high</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.OUT.high" title="Permalink to this definition"></a></dt>
-<dd><p>Set a value of 1 to a libregpio.OUT object.</p>
+<dd><p>Set a value of <code class="docutils literal notranslate"><span class="pre">1</span></code> to a libregpio.OUT object.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.OUT.low">
 <span class="sig-name descname"><span class="pre">low</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.OUT.low" title="Permalink to this definition"></a></dt>
-<dd><p>Set a value of 0 to a libregpio.OUT object</p>
+<dd><p>Set a value of <code class="docutils literal notranslate"><span class="pre">0</span></code> to a libregpio.OUT object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.OUT.output">
 <span class="sig-name descname"><span class="pre">output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.OUT.output" title="Permalink to this definition"></a></dt>
-<dd><p>Set an output value to a libregpio.OUT object (i.e. 0 or 1).</p>
+<dd><p>Set an output value to a libregpio.OUT object (i.e. <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>int</em>) – output value to be sent to GPIO pin</p>
@@ -429,7 +429,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="libregpio.cleanup">
 <span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Set specific pins or all pins to 0.</p>
+<dd><p>Set specific pins or all pins to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <p>It is recommended to use this method at the end of your program.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -14,7 +14,7 @@ class OUT:
         self.pin = PIN_NAME[pin]
     
     def output(self, value):
-        """Set an output value to a libregpio.OUT object (i.e. 0 or 1).
+        """Set an output value to a libregpio.OUT object (i.e. ``0`` or ``1``).
 
         :param value: output value to be sent to GPIO pin
         :type value: int
@@ -24,11 +24,11 @@ class OUT:
             system(f"gpioset {GPIOCHIP} {self.pin}={self.value}")
 
     def low(self):
-        """Set a value of 0 to a libregpio.OUT object"""   
+        """Set a value of ``0`` to a libregpio.OUT object"""   
         system(f"gpioset {GPIOCHIP} {self.pin}=0")
 
     def high(self):
-        """Set a value of 1 to a libregpio.OUT object."""
+        """Set a value of ``1`` to a libregpio.OUT object."""
         system(f"gpioset {GPIOCHIP} {self.pin}=1")
 
     def active_low(self):
@@ -76,8 +76,8 @@ class IN:
         :type num_events: int, optional
         :param active_low: Set pin to active-low state (``True``, ``False``). defaults to False.
         :type num_events: Boolean, optional
-        :return: ``1`` for rising.``0``for falling
-        :rtype: 
+        :return: ``1`` for rising ``0`` for falling
+        :rtype: int
         """
         if active_low:
             al = '-l'
@@ -166,7 +166,7 @@ class PWM:
 
 
 def cleanup(pins=None):
-    """Set specific pins or all pins to 0.
+    """Set specific pins or all pins to ``0``.
 
     It is recommended to use this method at the end of your program.
 

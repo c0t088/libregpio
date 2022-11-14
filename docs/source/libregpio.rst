@@ -105,7 +105,7 @@ In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. 
        GPIO.cleanup()
 
 .. note::
-       You can use the ``num_events`` parameter if you don't want to wait for the first event occurrence.
+       You can use the ``num_events`` parameter if you want to wait for more than one event occurrence.
 
 
 OUT Class examples
