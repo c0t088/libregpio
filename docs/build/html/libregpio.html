@@ -20,6 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Compatibility with other boards" href="compatibility.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -43,7 +44,22 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Importing the module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#pin-reference">PIN Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-libregpio">API documentation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#how-to-use">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#in-class-examples">IN Class examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-a-current-gpio-value">Read a current GPIO value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pull-up-and-pull-down-resistors">Pull up and Pull down resistors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wait-for-an-edge-event">Wait for an edge event</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#out-class-examples">OUT Class examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#output-method">output method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-and-low-methods">high and low methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#toggle-method">toggle method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#api-documentation">API documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#libregpio.IN"><code class="docutils literal notranslate"><span class="pre">IN</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.IN.input"><code class="docutils literal notranslate"><span class="pre">IN.input()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.IN.wait_for_edge"><code class="docutils literal notranslate"><span class="pre">IN.wait_for_edge()</span></code></a></li>
@@ -57,9 +73,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#libregpio.OUT.toggle"><code class="docutils literal notranslate"><span class="pre">OUT.toggle()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#libregpio.PWM"><code class="docutils literal notranslate"><span class="pre">PWM</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.PWM.change_duty_cycle"><code class="docutils literal notranslate"><span class="pre">PWM.change_duty_cycle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.PWM.change_freq"><code class="docutils literal notranslate"><span class="pre">PWM.change_freq()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.PWM.pulse_loop"><code class="docutils literal notranslate"><span class="pre">PWM.pulse_loop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.PWM.start"><code class="docutils literal notranslate"><span class="pre">PWM.start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libregpio.PWM.stop"><code class="docutils literal notranslate"><span class="pre">PWM.stop()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#libregpio.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility with other boards</a></li>
 </ul>
 
         </div>
@@ -89,7 +114,7 @@
   <section id="importing-the-module">
 <h1>Importing the module<a class="headerlink" href="#importing-the-module" title="Permalink to this heading"></a></h1>
 <p>To import the libregpio module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
 </pre></div>
 </div>
 <p>This way allows you to refer to it as GPIO for the rest of your program.</p>
@@ -98,25 +123,149 @@
 <h1>PIN Reference<a class="headerlink" href="#pin-reference" title="Permalink to this heading"></a></h1>
 <p>This module is designed to work with the 40-pin chip of Libre Computer AML-S905X-CC “LePotato”.</p>
 <img alt="_images/gpio40pin-lepotato.png" src="_images/gpio40pin-lepotato.png" />
-<p>Please, see Libre Computer’s GPIO Headers Reference for full documentation: <a class="reference external" href="https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0">https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please, see Libre Computer’s GPIO Headers Reference for full functions documentation: <a class="reference external" href="https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0">https://docs.google.com/spreadsheets/d/1U3z0Gb8HUEfCIMkvqzmhMpJfzRqjPXq7mFLC-hvbKlE/edit#gid=0</a></p>
+</div>
 <p>To access GPIO pins with this module, a class instance needs to be created. The pins are referred to by their GPIO name.</p>
 <p>This is an example of an <code class="docutils literal notranslate"><span class="pre">IN</span></code> (input) class instance set to use ‘GPIOX_4’ pin:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
 
  <span class="n">a_pin</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">IN</span><span class="p">(</span><span class="s1">&#39;GPIOX_4&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="module-libregpio">
-<span id="api-documentation"></span><h1>API documentation<a class="headerlink" href="#module-libregpio" title="Permalink to this heading"></a></h1>
-<dl class="py class">
+<section id="how-to-use">
+<h1>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h1>
+<p>As noted in the previous section, GPIO pins are handled as class instances based on their intende use. Here we will run through some code examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please, take notice that the <code class="docutils literal notranslate"><span class="pre">cleanup()</span></code> method is used at the end of every example. This is recommended to avoid leaving any pins on a high state after the end of your program.</p>
+</div>
+<section id="in-class-examples">
+<h2>IN Class examples<a class="headerlink" href="#in-class-examples" title="Permalink to this heading"></a></h2>
+<section id="read-a-current-gpio-value">
+<h3>Read a current GPIO value<a class="headerlink" href="#read-a-current-gpio-value" title="Permalink to this heading"></a></h3>
+<p>In this example we create an instance of the <code class="docutils literal notranslate"><span class="pre">libregpio.IN</span></code> class and call the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to read the pin value:
+.. code-block:: python</p>
+<blockquote>
+<div><p>import libregpio as GPIO</p>
+<p># set pin GPIOX_12 to be used as an input
+pin = GPIO.IN(‘GPIOX_12’)</p>
+<p># read pin value
+value = pin.input()</p>
+<p># print read value
+print(value)</p>
+<p>GPIO.cleanup()</p>
+</div></blockquote>
+</section>
+<section id="pull-up-and-pull-down-resistors">
+<h3>Pull up and Pull down resistors<a class="headerlink" href="#pull-up-and-pull-down-resistors" title="Permalink to this heading"></a></h3>
+<p>When using a pin as an input it may be at a floating state, sending unreliable values. To prevent this, the <code class="docutils literal notranslate"><span class="pre">bias</span></code> parameter can be used in the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to set <code class="docutils literal notranslate"><span class="pre">pull-up</span></code> or <code class="docutils literal notranslate"><span class="pre">pull-down</span></code> resistors.</p>
+<p>This is the same example as above, but setting a pull-down bias:
+.. code-block:: python</p>
+<blockquote>
+<div><p>import libregpio as GPIO</p>
+<p># set pin GPIOX_12 to be used as an input
+pin = GPIO.IN(‘GPIOX_12’)</p>
+<p># read pin value with a pull-down resistor
+value = pin.input(bias=’pull-down’)</p>
+<p># print read value
+print(value)</p>
+<p>GPIO.cleanup()</p>
+</div></blockquote>
+</section>
+<section id="wait-for-an-edge-event">
+<h3>Wait for an edge event<a class="headerlink" href="#wait-for-an-edge-event" title="Permalink to this heading"></a></h3>
+<p>In some applications you may want your program to wait for a falling-edge or rising-edge event. For this, you can use the <code class="docutils literal notranslate"><span class="pre">wait_for_edge</span></code> method.</p>
+<p>In this example we are using a PIR motion sensor connected to the GPIOX_12 pin. The program waits for a rising-edge event before printing the corresponding value:
+.. code-block:: python</p>
+<blockquote>
+<div><p>import libregpio as GPIO</p>
+<p># set pin GPIOX_12 to be used as an input
+pin = GPIO.IN(‘GPIOX_12’)</p>
+<p># wait for a rising-edge event. Bias is set to pull-down
+value = pin.wait_for_edge(bias=’pull-down’, edge=’rising’)</p>
+<p># print event value
+print(value)</p>
+<p>GPIO.cleanup()</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">num_events</span></code> parameter if you don’t want to wait for the first event occurrence.</p>
+</div>
+</section>
+</section>
+<section id="out-class-examples">
+<h2>OUT Class examples<a class="headerlink" href="#out-class-examples" title="Permalink to this heading"></a></h2>
+<p>In this section, we will turn an LED on for three seconds using the different methods of the <code class="docutils literal notranslate"><span class="pre">libregpio.OUT</span></code> class.</p>
+<section id="output-method">
+<h3>output method<a class="headerlink" href="#output-method" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># set pin GPIOX_5 to be used as an output</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">(</span><span class="s1">&#39;GPIOX_5&#39;</span><span class="p">)</span>
+
+<span class="c1"># send a 1 value and return it to 0 after 3 seconds</span>
+<span class="n">led</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">led</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="high-and-low-methods">
+<h3>high and low methods<a class="headerlink" href="#high-and-low-methods" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># set pin GPIOX_5 to be used as an output</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">(</span><span class="s1">&#39;GPIOX_5&#39;</span><span class="p">)</span>
+
+<span class="c1"># set the pin output to high and return to low after 3 seconds</span>
+<span class="n">led</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">led</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="toggle-method">
+<h3>toggle method<a class="headerlink" href="#toggle-method" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libregpio</span> <span class="k">as</span> <span class="nn">GPIO</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># set pin GPIOX_5 to be used as an output</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">(</span><span class="s1">&#39;GPIOX_5&#39;</span><span class="p">)</span>
+
+<span class="c1"># set the pin output to high and return to low after 3 seconds</span>
+<span class="n">led</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">led</span><span class="o">.</span><span class="n">toggle</span><span class="p">()</span>
+
+<span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="api-documentation">
+<h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Although this module contains a PWM class, it is not currently working properly in this version. Be aware that using this class and its methods can lead to undesired results.</p>
+</div>
+<span class="target" id="module-libregpio"></span><dl class="py class">
 <dt class="sig sig-object py" id="libregpio.IN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">IN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is a class representantion of a GPIO pin to be used as an input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pin</strong> (<em>string</em>) – GPIO pin name (i.e. GPIOX_4)</p>
+<dd class="field-odd"><p><strong>pin</strong> (<em>str</em>) – GPIO pin name (i.e. GPIOX_4)</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -127,10 +276,10 @@
 <p>Use the bias parameter to enable pull-up or pull-down modes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bias</strong> (<em>string</em><em>, </em><em>optional</em>) – <cite>pull-up</cite> <cite>pull-down</cite> <cite>as-is</cite> <cite>disable</cite></p>
+<dd class="field-odd"><p><strong>bias</strong> (<em>str</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">pull-up</span></code>, <code class="docutils literal notranslate"><span class="pre">pull-down</span></code>, <code class="docutils literal notranslate"><span class="pre">as-is</span></code>, <code class="docutils literal notranslate"><span class="pre">disable</span></code></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Input value read from GPIO pin (i.e. 0 or 1)</p>
+<dd class="field-even"><p>Input value read from GPIO pin (i.e. <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
@@ -140,21 +289,22 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.IN.wait_for_edge">
-<span class="sig-name descname"><span class="pre">wait_for_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rising'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_low</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN.wait_for_edge" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wait_for_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'as-is'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rising'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_low</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.IN.wait_for_edge" title="Permalink to this definition"></a></dt>
 <dd><p>Returns an input value when a specific edge event is detected. This method is designed to stop your program execution until an event is detected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>edge</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of event to wait for (<cite>rising</cite> <cite>falling</cite>), defaults to ‘rising’</p></li>
+<li><p><strong>bias</strong> (<em>str</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">pull-up</span></code>, <code class="docutils literal notranslate"><span class="pre">pull-down</span></code>, <code class="docutils literal notranslate"><span class="pre">as-is</span></code>, <code class="docutils literal notranslate"><span class="pre">disable</span></code></p></li>
+<li><p><strong>edge</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of event to wait for (<code class="docutils literal notranslate"><span class="pre">rising</span></code>, <code class="docutils literal notranslate"><span class="pre">falling</span></code>), defaults to ‘rising’</p></li>
 <li><p><strong>num_events</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – number of events to wait for. defaults to 1</p></li>
-<li><p><strong>active_low</strong> – Set pin to active-low state (<cite>True</cite> <cite>False</cite>). defaults to False.</p></li>
+<li><p><strong>active_low</strong> – Set pin to active-low state (<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>). defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>1</cite> for rising.`0`for falling</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code> for rising.``0``for falling</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p></p>
 </dd>
 </dl>
 </dd></dl>
@@ -168,7 +318,7 @@
 <p>This is a class representantion of a GPIO pin to be used as an output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pin</strong> (<em>string</em>) – GPIO pin name (i.e. GPIOX_4)</p>
+<dd class="field-odd"><p><strong>pin</strong> (<em>str</em>) – GPIO pin name (i.e. GPIOX_4)</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -208,10 +358,75 @@
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="libregpio.PWM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">PWM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a class representantion of a GPIO pin to be used as an PWM output.</p>
+<p>Use only with pins compatible with PWM (pulse width modulation).</p>
+<p>Creating the class instance does not automatically sends a PWM output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pin</strong> (<em>str</em>) – GPIO pin name (i.e. GPIOX_4)</p></li>
+<li><p><strong>duty_cycle</strong> (<em>int</em>) – duty cycle percentage</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – frequency in Hertz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.PWM.change_duty_cycle">
+<span class="sig-name descname"><span class="pre">change_duty_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.change_duty_cycle" title="Permalink to this definition"></a></dt>
+<dd><p>Modify the current duty cycle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>duty_cycle</strong> (<em>int</em>) – duty cycle percentage</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.PWM.change_freq">
+<span class="sig-name descname"><span class="pre">change_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.change_freq" title="Permalink to this definition"></a></dt>
+<dd><p>Modify the current frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>freq</strong> (<em>float</em>) – frequency in Hertz</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.PWM.pulse_loop">
+<span class="sig-name descname"><span class="pre">pulse_loop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.pulse_loop" title="Permalink to this definition"></a></dt>
+<dd><p>This method is called by <code class="docutils literal notranslate"><span class="pre">start()</span></code> to loop the pulse output on a different thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.PWM.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.start" title="Permalink to this definition"></a></dt>
+<dd><p>Start the PWM output</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libregpio.PWM.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.stop" title="Permalink to this definition"></a></dt>
+<dd><p>Set an event to stop the PWM</p>
+<p>It ‘cleans up’ the GPIO pin.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="libregpio.cleanup">
-<span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Set a 0 value to every GPIO pin. It is a good practice to call this function at the end of your program to prevent shorting pins.</p>
+<span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.cleanup" title="Permalink to this definition"></a></dt>
+<dd><p>Set specific pins or all pins to 0.</p>
+<p>It is recommended to use this method at the end of your program.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pins</strong> (<em>iterable</em><em>, </em><em>optional</em>) – list/tuple of pin or pins by name, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -221,6 +436,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="compatibility.html" class="btn btn-neutral float-right" title="Compatibility with other boards" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

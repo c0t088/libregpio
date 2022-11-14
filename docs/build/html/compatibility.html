@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; libregpio 0.0.1 documentation</title>
+  <title>Compatibility with other boards &mdash; libregpio 0.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Importing the module" href="libregpio.html" />
-    <link rel="prev" title="libregpio" href="index.html" /> 
+    <link rel="prev" title="Importing the module" href="libregpio.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,12 +40,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libregpio.html">Importing the module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libregpio.html#pin-reference">PIN Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libregpio.html#how-to-use">How to use</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libregpio.html#api-documentation">API documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility with other boards</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Compatibility with other boards</a></li>
 </ul>
 
         </div>
@@ -63,9 +62,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Installation</li>
+      <li class="breadcrumb-item active">Compatibility with other boards</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/compatibility.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -73,22 +72,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
-<p>Before installation it is required to have <code class="docutils literal notranslate"><span class="pre">gpiod</span></code> installed on your board.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>sudo apt install gpiod
+  <section id="compatibility-with-other-boards">
+<h1>Compatibility with other boards<a class="headerlink" href="#compatibility-with-other-boards" title="Permalink to this heading"></a></h1>
+<p>This module is designed to work with Libre Computer’s “LePotato”. However, it can be mapped to different boards if needed, provided they are work with <code class="docutils literal notranslate"><span class="pre">gpiod</span></code>.</p>
+<p>To achieve this, you need to modify the constants in the <code class="docutils literal notranslate"><span class="pre">pin_mapping.py</span></code> file to match your board.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set this value to your GPIO chip name</span>
+<span class="n">GPIOCHIP</span> <span class="o">=</span> <span class="s2">&quot;gpiochip1&quot;</span>
+
+<span class="c1"># Modify this dictionary to your preffered pin names and corresponding</span>
+<span class="c1"># linux number of said pins</span>
+<span class="n">PIN_NAME</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s2">&quot;GPIOA9_5&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="s2">&quot;GPIOAO_4&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="s2">&quot;GPIOCLK_0&quot;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
+<span class="s2">&quot;GPIOAO_8&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="s2">&quot;GPIOAO_9&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+<span class="s2">&quot;GPIOX_8&quot;</span><span class="p">:</span> <span class="mi">87</span><span class="p">,</span>
+<span class="s2">&quot;GPIOX_9&quot;</span><span class="p">:</span> <span class="mi">88</span><span class="p">,</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
 </pre></div>
 </div>
-<p>This module is not yet available to install via <strong>pip</strong>.</p>
-<p>Source code: <a class="reference external" href="https://github.com/c0t088/libregpio">https://github.com/c0t088/libregpio</a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="libregpio" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="libregpio.html" class="btn btn-neutral float-right" title="Importing the module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="libregpio.html" class="btn btn-neutral float-left" title="Importing the module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

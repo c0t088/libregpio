@@ -1,12 +1,14 @@
 from pin_mapping import GPIOCHIP, PIN_NAME
 from os import system, popen
+from threading import Thread, Event
+from time import sleep
 
 
 class OUT:
     """This is a class representantion of a GPIO pin to be used as an output.
 
     :param pin: GPIO pin name (i.e. GPIOX_4)
-    :type pin: string
+    :type pin: str
     """    
     def __init__(self, pin):
         self.pin = PIN_NAME[pin]
@@ -35,7 +37,7 @@ class OUT:
     
     def toggle(self):
         """Toggle output value of a GPIO pin"""
-        current_value = int(popen(f"gpioget {GPIOCHIP} {self.pin}").read())
+        current_value = int(popen(f"gpioget -B disable {GPIOCHIP} {self.pin}").read())
         self.output(int(not(current_value)))
 
 
@@ -43,7 +45,7 @@ class IN:
     """This is a class representantion of a GPIO pin to be used as an input.
 
     :param pin: GPIO pin name (i.e. GPIOX_4)
-    :type pin: string
+    :type pin: str
     """  
     def __init__(self, pin):
         self.pin = PIN_NAME[pin]
@@ -55,25 +57,27 @@ class IN:
 
         Use the bias parameter to enable pull-up or pull-down modes.
 
-        :param bias: ``pull-up`` ``pull-down`` ``as-is`` ``disable``
-        :type bias: string, optional
-        :return: Input value read from GPIO pin (i.e. 0 or 1)
+        :param bias: ``pull-up``, ``pull-down``, ``as-is``, ``disable``
+        :type bias: str, optional
+        :return: Input value read from GPIO pin (i.e. ``0`` or ``1``)
         :rtype: int
         """        
         value = int(popen(f"gpioget -B {bias} {GPIOCHIP} {self.pin}").read())
         return value
     
-    def wait_for_edge(self, edge='rising', num_events=1, active_low=False):
+    def wait_for_edge(self, bias="as-is", edge='rising', num_events=1, active_low=False):
         """Returns an input value when a specific edge event is detected. This method is designed to stop your program execution until an event is detected.
 
-        :param edge: Type of event to wait for (``rising`` ``falling``), defaults to 'rising'
+        :param bias: ``pull-up``, ``pull-down``, ``as-is``, ``disable``
+        :type bias: str, optional
+        :param edge: Type of event to wait for (``rising``, ``falling``), defaults to 'rising'
         :type edge: str, optional
         :param num_events: number of events to wait for. defaults to 1
         :type num_events: int, optional
-        :param active_low: Set pin to active-low state (``True`` ``False``). defaults to False.
+        :param active_low: Set pin to active-low state (``True``, ``False``). defaults to False.
         :type num_events: Boolean, optional
-        :return: ``1`` for rising.`0`for falling
-        :rtype: int
+        :return: ``1`` for rising.``0``for falling
+        :rtype: 
         """
         if active_low:
             al = '-l'
@@ -82,16 +86,96 @@ class IN:
 
         for event in range(num_events):
             if edge == 'rising':
-                edge_val = int(popen(f'gpiomon -r -n 1 {al} -B pull-down -F "%e" {GPIOCHIP} {self.pin}').read())
+                edge_val = int(popen(f'gpiomon -r -n 1 {al} -B {bias} -F "%e" {GPIOCHIP} {self.pin}').read())
             elif edge == 'falling':
-                edge_val = int(popen(f'gpiomon -f -n 1 {al} -B pull-up -F "%e" {GPIOCHIP} {self.pin}').read())
+                edge_val = int(popen(f'gpiomon -f -n 1 {al} -B {bias} -F "%e" {GPIOCHIP} {self.pin}').read())
             else:
                 edge_val = None
         return edge_val
 
 
-def cleanup():
-    """Set a 0 value to every GPIO pin. It is a good practice to call this function at the end of your program to prevent shorting pins.
-    """    
-    for pin in PIN_NAME.values():
-        system(f"gpioset {GPIOCHIP} {pin}=0")
+class PWM:
+    """This is a class representantion of a GPIO pin to be used as an PWM output.
+
+    Use only with pins compatible with PWM (pulse width modulation).
+
+    Creating the class instance does not automatically sends a PWM output.
+
+    :param pin: GPIO pin name (i.e. GPIOX_4)
+    :type pin: str
+    :param duty_cycle: duty cycle percentage
+    :type duty_cycle: int
+    :param freq: frequency in Hertz
+    :type freq: float
+    """ 
+    def pulse_loop(self):
+        """This method is called by ``start()`` to loop the pulse output on a different thread
+        """
+        while True:
+            if self.event.is_set():
+                break
+            system(f"gpioset {GPIOCHIP} {self.pin}=1")
+            sleep(self.high_time)
+            system(f"gpioset {GPIOCHIP} {self.pin}=0")
+            sleep(self.low_time)
+
+    def __init__(self, pin, duty_cycle, freq):
+        self.pin_name = pin
+        self.pin = PIN_NAME[pin]
+        self.duty_cycle = duty_cycle
+        self.freq = freq
+        self.pulse_time = 1/self.freq
+        self.high_time = self.pulse_time * self.duty_cycle / 100
+        self.low_time = self.pulse_time - self.high_time
+        self.event = Event()
+        self.thread = Thread(target=self.pulse_loop)
+
+    def start(self):
+        """Start the PWM output
+        """
+        self.thread.start()
+
+    def stop(self):
+        """Set an event to stop the PWM
+
+        It 'cleans up' the GPIO pin.
+        """
+        for i in range(int(self.freq)):
+            self.event.is_set()
+            sleep(self.low_time)
+        cleanup([self.pin_name])
+
+    def change_duty_cycle(self, duty_cycle):
+        """Modify the current duty cycle
+
+        :param duty_cycle: duty cycle percentage
+        :type duty_cycle: int
+        """
+        self.duty_cycle = duty_cycle
+    
+    def change_freq(self, freq):
+        """Modify the current frequency
+
+        :param freq: frequency in Hertz
+        :type freq: float
+        """
+        self.freq = freq
+        self.pulse_time = 1/self.freq
+        self.high_time = self.pulse_time * self.duty_cycle / 100
+        self.low_time = self.pulse_time - self.high_time
+
+
+def cleanup(pins=None):
+    """Set specific pins or all pins to 0.
+
+    It is recommended to use this method at the end of your program.
+
+    :param pins: list/tuple of pin or pins by name, defaults to ``None``
+    :type pins: iterable, optional
+    """
+    if pins:
+        for pin in pins:
+            system(f"gpioset {GPIOCHIP} {PIN_NAME[pin]}=0")
+    else:
+        for pin in PIN_NAME.values():
+            system(f"gpioset {GPIOCHIP} {pin}=0")

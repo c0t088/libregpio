@@ -8,12 +8,16 @@ libregpio
 
 ``libregpio`` is a python module that aims to provide basic, straight-forward GPIO input/output operations for Libre Computer "Le Potato" using ``gpiod``
 
+.. note::
+   This is an enthusiast project. It is not an official Libre Computer's package.
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    installation
    libregpio
+   compatibility
 
 GitHub
 ======

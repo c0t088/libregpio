@@ -3,7 +3,7 @@ Installation
 
 Before installation it is required to have ``gpiod`` installed on your board.
 
-.. code-block::
+.. code-block:: console
 
     $sudo apt install gpiod
 
