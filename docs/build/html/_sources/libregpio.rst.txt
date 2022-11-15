@@ -167,7 +167,7 @@ API documentation
 =================
 
 .. warning::
-       Although this module contains a PWM class, it is not currently working properly in this version. Be aware that using this class and its methods can lead to undesired results.
+       Although this module contains a PWM class, it is not currently working properly. Be aware that using this class and its methods can lead to unexpected results.
 
 .. automodule:: libregpio
    :members:
