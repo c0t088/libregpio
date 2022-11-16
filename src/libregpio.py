@@ -108,15 +108,6 @@ class PWM(Thread):
     :param freq: frequency in Hertz
     :type freq: float
     """ 
-    def pulse_loop(self):
-        """This method is called by ``start()`` to loop the pulse output on a different thread
-        """
-        while self.to_stop == False:
-            system(f"gpioset {GPIOCHIP} {self.pin}=1")
-            sleep(self.duty_cycle * self.slice)
-            system(f"gpioset {GPIOCHIP} {self.pin}=0")
-            sleep((self.max_cycle - self.duty_cycle) * self.slice)
-        self.stopped = True
 
     def __init__(self, pin, duty_cycle, freq):
         self.pin_name = pin
@@ -128,8 +119,22 @@ class PWM(Thread):
         self.to_stop = False
         self.stopped = False
 
+    def pulse_loop(self):
+        """This method is called by ``start()`` to loop the pulse output on a different thread
+
+        Do not call this method outside of this class.
+        """
+        while self.to_stop == False:
+            system(f"gpioset {GPIOCHIP} {self.pin}=1")
+            sleep(self.duty_cycle * self.slice)
+            system(f"gpioset {GPIOCHIP} {self.pin}=0")
+            sleep((self.max_cycle - self.duty_cycle) * self.slice)
+        self.stopped = True
+
     def start(self, duty_cycle=None):
-        """Start the PWM output
+        """Start the PWM output.
+
+        You can update the duty cycle when starting this method.
 
         :param duty_cycle: duty cycle percentage, defaults to None
         :type duty_cycle: int, optional
@@ -168,7 +173,7 @@ class PWM(Thread):
 
 
 def cleanup(pins=None):
-    """Set specific pins or all pins to ``0``.
+    """By Default, it sets all pins to ``0`` but you can pass a list if only specific pins need to be cleaned up.
 
     It is recommended to use this method at the end of your program.
 

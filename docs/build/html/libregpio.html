@@ -144,6 +144,7 @@
 </div>
 <section id="in-class-examples">
 <h2>IN Class examples<a class="headerlink" href="#in-class-examples" title="Permalink to this heading"></a></h2>
+<p>This section contains examples on how to use GPIO pins as inputs.</p>
 <section id="read-a-current-gpio-value">
 <h3>Read a current GPIO value<a class="headerlink" href="#read-a-current-gpio-value" title="Permalink to this heading"></a></h3>
 <p>In this example we create an instance of the <code class="docutils literal notranslate"><span class="pre">libregpio.IN</span></code> class and call the <code class="docutils literal notranslate"><span class="pre">input</span></code> method to read the pin value:</p>
@@ -370,7 +371,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="libregpio.PWM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">PWM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code></p>
 <p>This is a class representantion of a GPIO pin to be used as an PWM output.</p>
 <p>Use only with pins compatible with PWM (pulse width modulation).</p>
 <p>Creating the class instance does not automatically sends a PWM output.</p>
@@ -409,18 +410,25 @@
 <dt class="sig sig-object py" id="libregpio.PWM.pulse_loop">
 <span class="sig-name descname"><span class="pre">pulse_loop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.pulse_loop" title="Permalink to this definition"></a></dt>
 <dd><p>This method is called by <code class="docutils literal notranslate"><span class="pre">start()</span></code> to loop the pulse output on a different thread</p>
+<p>Do not call this method outside of this class.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.PWM.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.start" title="Permalink to this definition"></a></dt>
-<dd><p>Start the PWM output</p>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duty_cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.start" title="Permalink to this definition"></a></dt>
+<dd><p>Start the PWM output.</p>
+<p>You can update the duty cycle when starting this method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>duty_cycle</strong> (<em>int</em><em>, </em><em>optional</em>) – duty cycle percentage, defaults to None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libregpio.PWM.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.PWM.stop" title="Permalink to this definition"></a></dt>
-<dd><p>Set an event to stop the PWM</p>
+<dd><p>Stop the PWM output</p>
 <p>It ‘cleans up’ the GPIO pin.</p>
 </dd></dl>
 
@@ -429,7 +437,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="libregpio.cleanup">
 <span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Set specific pins or all pins to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<dd><p>By Default, it sets all pins to <code class="docutils literal notranslate"><span class="pre">0</span></code> but you can pass a list if only specific pins need to be cleaned up.</p>
 <p>It is recommended to use this method at the end of your program.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

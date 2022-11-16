@@ -39,6 +39,7 @@ As noted in the previous section, GPIO pins are handled as class instances based
 
 IN Class examples
 #################
+This section contains examples on how to use GPIO pins as inputs.
 
 Read a current GPIO value
 *************************
