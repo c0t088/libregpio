@@ -1,6 +1,6 @@
 from pin_mapping import GPIOCHIP, PIN_NAME
 from os import system, popen
-from threading import Thread, Event
+from threading import Thread
 from time import sleep
 
 
@@ -94,7 +94,7 @@ class IN:
         return edge_val
 
 
-class PWM:
+class PWM(Thread):
     """This is a class representantion of a GPIO pin to be used as an PWM output.
 
     Use only with pins compatible with PWM (pulse width modulation).
@@ -111,38 +111,42 @@ class PWM:
     def pulse_loop(self):
         """This method is called by ``start()`` to loop the pulse output on a different thread
         """
-        while True:
-            if self.event.is_set():
-                break
+        while self.to_stop == False:
             system(f"gpioset {GPIOCHIP} {self.pin}=1")
-            sleep(self.high_time)
+            sleep(self.duty_cycle * self.slice)
             system(f"gpioset {GPIOCHIP} {self.pin}=0")
-            sleep(self.low_time)
+            sleep((self.max_cycle - self.duty_cycle) * self.slice)
+        self.stopped = True
 
     def __init__(self, pin, duty_cycle, freq):
         self.pin_name = pin
         self.pin = PIN_NAME[pin]
         self.duty_cycle = duty_cycle
-        self.freq = freq
-        self.pulse_time = 1/self.freq
-        self.high_time = self.pulse_time * self.duty_cycle / 100
-        self.low_time = self.pulse_time - self.high_time
-        self.event = Event()
-        self.thread = Thread(target=self.pulse_loop)
+        self.max_cycle = 100.0
+        self.pulse_time = 1.0/freq
+        self.slice = self.pulse_time / self.max_cycle
+        self.to_stop = False
+        self.stopped = False
 
-    def start(self):
+    def start(self, duty_cycle=None):
         """Start the PWM output
+
+        :param duty_cycle: duty cycle percentage, defaults to None
+        :type duty_cycle: int, optional
         """
+        if duty_cycle:
+            self.duty_cycle = duty_cycle
+        self.thread = Thread(None, target=self.pulse_loop)
         self.thread.start()
 
     def stop(self):
-        """Set an event to stop the PWM
+        """Stop the PWM output
 
         It 'cleans up' the GPIO pin.
         """
-        for i in range(int(self.freq)):
-            self.event.is_set()
-            sleep(self.low_time)
+        while self.stopped == False:
+            self.to_stop = True
+            sleep(0.01)
         cleanup([self.pin_name])
 
     def change_duty_cycle(self, duty_cycle):
@@ -159,10 +163,8 @@ class PWM:
         :param freq: frequency in Hertz
         :type freq: float
         """
-        self.freq = freq
-        self.pulse_time = 1/self.freq
-        self.high_time = self.pulse_time * self.duty_cycle / 100
-        self.low_time = self.pulse_time - self.high_time
+        self.pulse_time = 1.0/freq
+        self.slice = self.pulse_time / self.max_cycle
 
 
 def cleanup(pins=None):
