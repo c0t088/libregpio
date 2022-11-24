@@ -1,17 +1,15 @@
-# This file contains PIN mappings to be used on LePotato
-
-GPIOCHIP = "gpiochip1"
-"""Constant that contains the name of the GPIO chip on the SBC. As default, this
-is set to the 40-pin GPIO chip of LibreComputer's "Le Potato".
-"""
-
 # PIN dictionary from GPIO pin Name to Linux number
 PIN_NAME = {
-    "GPIOA9_5": 5,
+    "GPIOAO_5": 5,
     "GPIOAO_4": 4,
     "GPIOCLK_0": 98,
-    "GPIOAO_8": 8,
+    #* Requires 2J1 jumper to be positioned to pass GPIOAO_8 to 40 pin header. 
+    # Default is set to HDMI CEC. Move the jumper to the two pins on the edge of the board for 
+    # controlling GPIO on the 40 pin header.
+    #"GPIOAO_8": 8,
     "GPIOAO_9": 9,
+    #Output only pin. This pin can be set to input and pulled down to reset the system.
+    #"TEST_N":10,
     "GPIOX_8": 87,
     "GPIOX_9": 88,
     "GPIOX_11": 90,

@@ -75,23 +75,27 @@
   <section id="compatibility-with-other-boards">
 <h1>Compatibility with other boards<a class="headerlink" href="#compatibility-with-other-boards" title="Permalink to this heading"></a></h1>
 <p>This module is designed to work with Libre Computer’s “LePotato”. However, it can be mapped to different boards if needed, provided they are work with <code class="docutils literal notranslate"><span class="pre">gpiod</span></code>.</p>
-<p>To achieve this, you need to modify the constants in the <code class="docutils literal notranslate"><span class="pre">pin_mapping.py</span></code> file to match your board.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set this value to your GPIO chip name</span>
-<span class="n">GPIOCHIP</span> <span class="o">=</span> <span class="s2">&quot;gpiochip1&quot;</span>
-
-<span class="c1"># Modify this dictionary to your preffered pin names and corresponding</span>
+<p>To achieve this, you need to modify the <code class="docutils literal notranslate"><span class="pre">pin_mapping.py</span></code> file to match your board.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modify this dictionary to your preffered pin names and corresponding</span>
 <span class="c1"># linux number of said pins</span>
 <span class="n">PIN_NAME</span> <span class="o">=</span> <span class="p">{</span>
-<span class="s2">&quot;GPIOA9_5&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="s2">&quot;GPIOAO_5&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
 <span class="s2">&quot;GPIOAO_4&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
 <span class="s2">&quot;GPIOCLK_0&quot;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
-<span class="s2">&quot;GPIOAO_8&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-<span class="s2">&quot;GPIOAO_9&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-<span class="s2">&quot;GPIOX_8&quot;</span><span class="p">:</span> <span class="mi">87</span><span class="p">,</span>
-<span class="s2">&quot;GPIOX_9&quot;</span><span class="p">:</span> <span class="mi">88</span><span class="p">,</span>
 <span class="o">.</span>
 <span class="o">.</span>
 <span class="o">.</span>
+</pre></div>
+</div>
+<p>And you need to modify the <code class="docutils literal notranslate"><span class="pre">set_chip()</span></code> method in the <code class="docutils literal notranslate"><span class="pre">libregpio.py</span></code> file to set the corresponding chip of every pin.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_chip</span><span class="p">(</span><span class="n">pin_name</span><span class="p">):</span>
+<span class="c1"># modify this code to match your board gpio chips</span>
+    <span class="n">chip_zero</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GPIOAO_5&#39;</span><span class="p">,</span><span class="s1">&#39;GPIOAO_4&#39;</span><span class="p">,</span><span class="s1">&#39;GPIOAO_8&#39;</span><span class="p">,</span><span class="s1">&#39;GPIOAO_9&#39;</span><span class="p">,</span><span class="s1">&#39;TEST_N&#39;</span><span class="p">,</span><span class="s1">&#39;GPIOAO_6&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">pin_name</span> <span class="ow">in</span> <span class="n">chip_zero</span><span class="p">:</span>
+        <span class="n">chip</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">chip</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">chip</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

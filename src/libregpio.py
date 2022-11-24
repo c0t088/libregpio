@@ -1,4 +1,4 @@
-from pin_mapping import GPIOCHIP, PIN_NAME
+from pin_mapping import PIN_NAME
 from os import system, popen
 from threading import Thread
 from time import sleep
@@ -11,6 +11,7 @@ class OUT:
     :type pin: str
     """    
     def __init__(self, pin):
+        self.GPIOCHIP = set_chip(pin)
         self.pin = PIN_NAME[pin]
     
     def output(self, value):
@@ -21,23 +22,23 @@ class OUT:
         """        
         self.value = value
         if self.value in [0, 1]:
-            system(f"gpioset {GPIOCHIP} {self.pin}={self.value}")
+            system(f"gpioset {self.GPIOCHIP} {self.pin}={self.value}")
 
     def low(self):
         """Set a value of ``0`` to a libregpio.OUT object"""   
-        system(f"gpioset {GPIOCHIP} {self.pin}=0")
+        system(f"gpioset {self.GPIOCHIP} {self.pin}=0")
 
     def high(self):
         """Set a value of ``1`` to a libregpio.OUT object."""
-        system(f"gpioset {GPIOCHIP} {self.pin}=1")
+        system(f"gpioset {self.GPIOCHIP} {self.pin}=1")
 
     def active_low(self):
         """Set libregpio.OUT object to active_low."""
-        system(f"gpioset {GPIOCHIP} {self.pin} -l")
+        system(f"gpioset {self.GPIOCHIP} {self.pin} -l")
     
     def toggle(self):
         """Toggle output value of a GPIO pin"""
-        current_value = int(popen(f"gpioget -B disable {GPIOCHIP} {self.pin}").read())
+        current_value = int(popen(f"gpioget -B disable {self.GPIOCHIP} {self.pin}").read())
         self.output(int(not(current_value)))
 
 
@@ -48,6 +49,7 @@ class IN:
     :type pin: str
     """  
     def __init__(self, pin):
+        self.GPIOCHIP = set_chip(pin)
         self.pin = PIN_NAME[pin]
 
     def input(self, bias="as-is"):
@@ -62,7 +64,7 @@ class IN:
         :return: Input value read from GPIO pin (i.e. ``0`` or ``1``)
         :rtype: int
         """        
-        value = int(popen(f"gpioget -B {bias} {GPIOCHIP} {self.pin}").read())
+        value = int(popen(f"gpioget -B {bias} {self.GPIOCHIP} {self.pin}").read())
         return value
     
     def wait_for_edge(self, bias="as-is", edge='rising', num_events=1, active_low=False):
@@ -86,9 +88,9 @@ class IN:
 
         for event in range(num_events):
             if edge == 'rising':
-                edge_val = int(popen(f'gpiomon -r -n 1 {al} -B {bias} -F "%e" {GPIOCHIP} {self.pin}').read())
+                edge_val = int(popen(f'gpiomon -r -n 1 {al} -B {bias} -F "%e" {self.GPIOCHIP} {self.pin}').read())
             elif edge == 'falling':
-                edge_val = int(popen(f'gpiomon -f -n 1 {al} -B {bias} -F "%e" {GPIOCHIP} {self.pin}').read())
+                edge_val = int(popen(f'gpiomon -f -n 1 {al} -B {bias} -F "%e" {self.GPIOCHIP} {self.pin}').read())
             else:
                 edge_val = None
         return edge_val
@@ -110,6 +112,7 @@ class PWM(Thread):
     """ 
 
     def __init__(self, pin, duty_cycle, freq):
+        self.GPIOCHIP = set_chip(pin)
         self.pin_name = pin
         self.pin = PIN_NAME[pin]
         self.duty_cycle = duty_cycle
@@ -125,9 +128,9 @@ class PWM(Thread):
         Do not call this method outside of this class.
         """
         while self.to_stop == False:
-            system(f"gpioset {GPIOCHIP} {self.pin}=1")
+            system(f"gpioset {self.GPIOCHIP} {self.pin}=1")
             sleep(self.duty_cycle * self.slice)
-            system(f"gpioset {GPIOCHIP} {self.pin}=0")
+            system(f"gpioset {self.GPIOCHIP} {self.pin}=0")
             sleep((self.max_cycle - self.duty_cycle) * self.slice)
         self.stopped = True
 
@@ -182,7 +185,23 @@ def cleanup(pins=None):
     """
     if pins:
         for pin in pins:
-            system(f"gpioset {GPIOCHIP} {PIN_NAME[pin]}=0")
+            system(f"gpioset {set_chip(pin)} {PIN_NAME[pin]}=0")
     else:
         for pin in PIN_NAME.values():
-            system(f"gpioset {GPIOCHIP} {pin}=0")
+            system(f"gpioset {set_chip(pin)} {pin}=0")
+
+
+def set_chip(pin_name):
+    """Select the gpio chip corresponding to the pin. Do not call this function.
+
+    :param pin_name: gpio pin name
+    :type pin_name: str
+    :return: gpio chip
+    :rtype: str
+    """
+    chip_zero = ['GPIOAO_5','GPIOAO_4','GPIOAO_8','GPIOAO_9','TEST_N','GPIOAO_6']
+    if pin_name in chip_zero:
+        chip = 0
+    else:
+        chip = 1
+    return str(chip)

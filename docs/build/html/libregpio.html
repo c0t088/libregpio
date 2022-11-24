@@ -82,6 +82,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#libregpio.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libregpio.set_chip"><code class="docutils literal notranslate"><span class="pre">set_chip()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility with other boards</a></li>
@@ -442,6 +443,23 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pins</strong> (<em>iterable</em><em>, </em><em>optional</em>) – list/tuple of pin or pins by name, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libregpio.set_chip">
+<span class="sig-prename descclassname"><span class="pre">libregpio.</span></span><span class="sig-name descname"><span class="pre">set_chip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#libregpio.set_chip" title="Permalink to this definition"></a></dt>
+<dd><p>Select the gpio chip corresponding to the pin. Do not call this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pin_name</strong> (<em>str</em>) – gpio pin name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>gpio chip</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
